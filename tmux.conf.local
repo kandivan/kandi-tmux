@@ -398,6 +398,8 @@ set -g mode-keys vi
 set -gu prefix2
 set -g prefix C-a
 unbind C-b
+# allow Ctrl+b to reach nested applications/tmux sessions that still use Ctrl+b
+bind -n C-b send-keys C-b
 bind C-a send-prefix
 
 # if you don't want Oh my tmux! to alter a binding or a setting, use #!important
