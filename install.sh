@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${TMUX_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/tmux}"
+TMUX_LEGACY_CONFIG="${TMUX_LEGACY_CONFIG:-$HOME/.tmux.conf}"
+TMUX_LEGACY_LOCAL_CONFIG="${TMUX_LEGACY_LOCAL_CONFIG:-$HOME/.tmux.conf.local}"
 DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/tmux"
 OH_MY_TMUX_DIR="${OH_MY_TMUX_DIR:-$DATA_DIR/oh-my-tmux}"
 OH_MY_TMUX_REPO="${OH_MY_TMUX_REPO:-https://github.com/gpakosz/.tmux.git}"
@@ -67,7 +69,9 @@ main() {
   mkdir -p "$CONFIG_DIR"
 
   link_path "$OH_MY_TMUX_DIR/.tmux.conf" "$CONFIG_DIR/tmux.conf"
+  link_path "$OH_MY_TMUX_DIR/.tmux.conf" "$TMUX_LEGACY_CONFIG"
   link_path "$REPO_DIR/tmux.conf.local" "$CONFIG_DIR/tmux.conf.local"
+  link_path "$REPO_DIR/tmux.conf.local" "$TMUX_LEGACY_LOCAL_CONFIG"
   link_path "$REPO_DIR/scripts" "$CONFIG_DIR/scripts"
 
   printf '\nInstall complete.\n'
